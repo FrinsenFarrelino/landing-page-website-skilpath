@@ -36,10 +36,8 @@ function submit() {
 
   if (validate == false) {
     document.getElementById("warning").textContent =
-      "isi data dengan benar (tidak boleh kosong, zip code harus angka, dan klik centang)";
-    alert(
-      "isi data dengan benar (tidak boleh kosong, zip code harus angka, dan klik centang)"
-    );
+      "Periksa form anda sekali lagi";
+    alert("Periksa form anda sekali lagi");
   } else {
     document.getElementById("warning").textContent = "";
     alert("Berhasil");
