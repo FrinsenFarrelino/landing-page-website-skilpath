@@ -4,50 +4,51 @@ function handleGetFormData() {
   const city = document.getElementById("city").value;
   const zipCode = document.getElementById("zip-code").value;
   const status = document.getElementById("status").checked;
-
-  return {
-    name,
-    email,
-    city,
-    zipCode,
-    status,
+  const data = {
+    name: name,
+    email: email,
+    city: city,
+    zipCode: zipCode,
+    status: status,
   };
+  return data;
+}
+
+function checkboxIsChecked() {
+  return document.getElementById("status").checked;
 }
 
 function isNumber(zipCode) {
   return !isNaN(zipCode);
 }
 
-function isChecked() {
-  return handleGetFormData().status.checked;
-}
-
 function validateFormData(data) {
-  let isNotNumberZip = isNumber(data.zipCode);
-
-  if (data != null && isNotNumberZip == true && isChecked()) {
-    return false;
+  if (data != null && isNumber(data.zipCode) && checkboxIsChecked()) {
+    return true;
   } else {
-    true;
+    return false;
   }
 }
 
-window.onload = function () {
-  const btn = document.getElementById("submit-form");
-  btn.addEventListener("click", submit);
-};
-
-function submit(event) {
-  event.preventDefault();
+function submit() {
   const data = handleGetFormData();
-  const validateForm = validateFormData(data);
-  if (validateForm == true) {
-    document.getElementById("warning").textContent = "";
-  } else {
+  const validate = validateFormData(data);
+
+  if (validate == false) {
     document.getElementById("warning").textContent =
       "isi data dengan benar (tidak boleh kosong, zip code harus angka, dan klik centang)";
     alert(
       "isi data dengan benar (tidak boleh kosong, zip code harus angka, dan klik centang)"
     );
+  } else {
+    document.getElementById("warning").textContent = "";
+    alert("Berhasil");
   }
 }
+
+const btn = document.getElementById("submit-form");
+
+btn.addEventListener("click", function (event) {
+  event.preventDefault();
+  submit();
+});
